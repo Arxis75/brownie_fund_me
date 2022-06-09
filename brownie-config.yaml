@@ -1,0 +1,78 @@
+dotenv: .env
+networks:
+  default:
+     development           #non-persistent ganache at 7545
+    # kovan-fork-alchemy    #non-persistent kovan fork from alchemy at 7545
+    # rinkeby-fork-alchemy  #non-persistent rinkeby fork from alchemy at 7545
+    # goerli-fork-alchemy   #non-persistent goerli fork from alchemy at 7545
+    # ropsten-fork-alchemy  #non-persistent ropsten fork from alchemy at 7545
+    # mainnet-fork-alchemy  #non-persistent mainnet fork from alchemy at 7545
+
+    # ganache-local         #local ganache at 7545
+    # kovan                 #remote infura kovan
+    # rinkeby               #remote infura rinkeby
+    # goerli                #remote infura goerli
+    # kiln                  #local kiln at 9545
+    # ropsten               #local ropsten at 9545, see ~/.brownie/network-config.yaml
+
+    # mainnet                #remote infura mainnet
+
+  # Non-persistent ganache
+  # Deployed contracts not recorded between run sessions
+  # Default port=7545
+  development:
+    publish: False
+
+  # Non-persistent forked networks
+  # Deployed contracts not recorded between run sessions
+  # Default port=7545
+  kovan-fork-alchemy:
+    eth_usd_feed: ${KOVAN_ETHUSD_FEED}
+    publish: False
+  rinkeby-fork-alchemy:
+    eth_usd_feed: ${RINKEBY_ETHUSD_FEED}
+    publish: False
+  goerli-fork-alchemy:
+    publish: False
+  ropsten-fork-alchemy:
+    publish: False
+  mainnet-fork-alchemy:
+    eth_usd_feed: ${MAINNET_ETHUSD_FEED}
+    publish: False
+
+  # Semi-persistent ganache (persistent as long as the ganache UI is running)
+  # Deployed contracts short-lived recorded under ./build/deployments/1337/ (to be deleted after closing the UI)
+  # Default port=7545
+  ganache-local:
+    publish: False
+
+  # Live TestNets
+  # Deployed contracts live & recorded under ./build/deployments/*/
+  # Default port=8545 (except kiln & ropsten where port=9545)
+  kovan:
+    eth_usd_feed: ${KOVAN_ETHUSD_FEED}
+    publish: False
+  rinkeby:
+    eth_usd_feed: ${RINKEBY_ETHUSD_FEED}
+    publish: False
+  goerli:
+    publish: False
+  kiln:               #port=9545
+    publish: False
+  ropsten:            #port=9545
+    publish: False
+
+  # Live Mainnets
+  # Deployed contracts live & recorded under ./build/deployments/1/
+   # Default port=8545
+  mainnet:
+    eth_usd_feed: ${MAINNET_ETHUSD_FEED}
+    publish: False
+
+dependencies:
+# - <organization/repo>@<version>
+- smartcontractkit/chainlink-brownie-contracts@0.4.1
+compiler:
+  solc:
+    remappings:
+      - '@chainlink=smartcontractkit/chainlink-brownie-contracts@0.4.1'
